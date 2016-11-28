@@ -6,39 +6,65 @@ import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.httpclient.HttpTransportClient;
 import com.vk.api.sdk.objects.UserAuthResponse;
+import com.vk.api.sdk.objects.apps.responses.GetResponse;
+import com.vk.api.sdk.queries.users.UserField;
+import java.util.ArrayList;
 import java.util.Random;
 
 
 public class ConnectVK {
+    VkApiClient vk;
+    UserActor actor;
+    Random random ;
+    Friend friendsmas [];
+    int friendcnt;
     
     public ConnectVK() throws ApiException, ClientException {
-      Random random = new Random();  
-        
+      
+      random = new Random();    
       TransportClient transportClient = HttpTransportClient.getInstance();
-      VkApiClient vk = new VkApiClient(transportClient); 
+      vk = new VkApiClient(transportClient); 
       
       
       //it's just for first run only. Need to get code and token and myId ---------
       //first step. You need  code      
-      String code = "afa5a1d378bb22fd54";     
-      
-      
-      //second step     
-      UserAuthResponse authResponse = vk.oauth()
-        .userAuthorizationCodeFlow(5738598, "kkJCdcP3K4LVga14Evdi","https://oauth.vk.com/blank.html", code)
-        .execute();      
-      
-      String token = authResponse.getAccessToken();
-      int myId = authResponse.getUserId();
-      System.out.println(token + " " + myId );
+//      String code = "217d98fe8b4843cbda";     
+//      
+//      
+//      //second step     
+//      UserAuthResponse authResponse = vk.oauth()
+//        .userAuthorizationCodeFlow(5738598, "kkJCdcP3K4LVga14Evdi","https://oauth.vk.com/blank.html", code)
+//        .execute();      
+//      
+//      String token = authResponse.getAccessToken();
+//      int myId = authResponse.getUserId();
+//      System.out.println(token + " " + myId );
       
       //--------------------------------------------------------------------
       // Go      
+      String token = "";
+      int myId = 1286612;
       
-        //UserActor actor = new UserActor(myId, token);
-        //vk.messages().send(actor).userId(13298515).message("Java проверочка");
-        //vk.messages().send(actor).message("отправление сообщений работает. прием:)").userId(1286612).randomId(random.nextInt()).execute();
+        actor = new UserActor(myId, token);
+        ArrayList<String> l = new ArrayList();
+        //l=vk.friends().get(null).execute();
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!! " + vk.friends().get(actor).execute());
+  
     }
+public void sendmessage (String msg,int id) throws ApiException, ClientException{
+ vk.messages().send(actor).message(msg).userId(id).randomId(random.nextInt()).execute();   
+}
 
+public void createfriendmas(){
+    friendsmas = new Friend[2];
+    Friend f1 = new Friend("Артём", "Смоляк", null, 13298515);
+    friendsmas[0]=f1;
+    Friend f2 = new Friend("Сергей", "Бондарев", null, 1286612);
+    friendsmas[1]=f2;
+}
+
+public void pursinformation(){
+
+}
     
 }
