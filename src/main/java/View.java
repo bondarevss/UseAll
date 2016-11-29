@@ -26,6 +26,7 @@ public class View extends JFrame{
     Actions actions;
     public ConnectVK vk;
     
+    
     public View() throws ApiException, ClientException{
      vk = new ConnectVK();
      actions = new Actions(this, vk);
@@ -50,6 +51,7 @@ public class View extends JFrame{
     
      entermessage.setLocation(150, 285);
      entermessage.setSize(250, 50);
+     entermessage.setLineWrap(true);
      panel.add(entermessage);
      
      add(panel);
@@ -77,9 +79,12 @@ public String [] createfrendlist(){
 class Actions implements ActionListener,ListSelectionListener{
     View v;
     ConnectVK vk;
+    static int indexfriend = -99;
+    int idfriend=-99;
     public Actions(View view, ConnectVK vk) {
     v = view;
     this.vk = vk;
+    
     }
 
     
@@ -87,10 +92,11 @@ class Actions implements ActionListener,ListSelectionListener{
     public void actionPerformed(ActionEvent e) {
          Object o = e.getSource();
      if (o==v.bsend){
-         System.out.println(v.entermessage.getText());
+         if (idfriend!=-99)
+         {
          String ms = v.entermessage.getText();
              try {
-                 vk.sendmessage(ms,1286612);
+                 vk.sendmessage(ms,idfriend);
              } catch (ApiException ex) {
                  Logger.getLogger(Actions.class.getName()).log(Level.SEVERE, null, ex);
              } catch (ClientException ex) {
@@ -99,6 +105,7 @@ class Actions implements ActionListener,ListSelectionListener{
          v.entermessage.setText(null);
          
      }
+     }
     }
 
     @Override
@@ -106,7 +113,10 @@ class Actions implements ActionListener,ListSelectionListener{
         //Object o = e.getSource();
        JList l = (JList)e.getSource();
        int tpmindex = l.getSelectedIndex();
-        System.out.println("ВЫбран" + tpmindex); 
+        System.out.println("Вsбран " + tpmindex);
+        idfriend = vk.friendsmas[tpmindex].id;
+        System.out.println("ID френда определён как " + idfriend);
+ 
     }
 
 }

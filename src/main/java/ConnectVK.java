@@ -19,6 +19,7 @@ public class ConnectVK {
     Friend friendsmas [];
     int friendcnt;
     
+    
     public ConnectVK() throws ApiException, ClientException {
       
       random = new Random();    
@@ -28,7 +29,7 @@ public class ConnectVK {
       
       //it's just for first run only. Need to get code and token and myId ---------
       //first step. You need  code      
-//      String code = "217d98fe8b4843cbda";     
+//      String code = "87f75f1c5400e4d572";     
 //      
 //      
 //      //second step     
@@ -42,7 +43,7 @@ public class ConnectVK {
       
       //--------------------------------------------------------------------
       // Go      
-      String token = "";
+      String token = "d4d5f626e59213a9176cd38b0b80f711be0a0b60fc5ec68b21ff89a57b24ad206bd3c9a6406e12867d988";
       int myId = 1286612;
       
         actor = new UserActor(myId, token);
