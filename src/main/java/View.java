@@ -1,6 +1,7 @@
 
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -10,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -23,6 +25,7 @@ public class View extends JFrame{
     JList<String> firendlist = new JList();
     JTextArea messagearea = new JTextArea();
     JTextArea entermessage = new JTextArea();
+    JScrollPane scrollpane = new JScrollPane(entermessage);
     Actions actions;
     public ConnectVK vk;
     
@@ -47,14 +50,22 @@ public class View extends JFrame{
      
      messagearea.setLocation(150, 25);
      messagearea.setSize(250, 250);
+     messagearea.setLineWrap(true);
+     messagearea.setWrapStyleWord(true);
      panel.add(messagearea);
     
      entermessage.setLocation(150, 285);
      entermessage.setSize(250, 50);
      entermessage.setLineWrap(true);
+     entermessage.setWrapStyleWord(true);
+     //Проблема со скролами
+//     scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//     add(scrollpane,BorderLayout.CENTER);
+  
      panel.add(entermessage);
      
      add(panel);
+     
      panel.setSize(400, 400);
      panel.setLocation(10, 10);
      panel.setLayout(null);
