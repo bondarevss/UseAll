@@ -33,12 +33,12 @@ public class ConnectVK {
       
       //it's just for first run only. Need to get code and token and myId ---------
       //first step. You need  code      
-//      String code = "69ff7f9593c60164e5";     
+//      String code = "";     
 //      
 //      
 //      //second step     
 //      UserAuthResponse authResponse = vk.oauth()
-//        .userAuthorizationCodeFlow(5738598, "kkJCdcP3K4LVga14Evdi","https://oauth.vk.com/blank.html", code)
+//        .userAuthorizationCodeFlow(, "","https://oauth.vk.com/blank.html", code)
 //        .execute();      
 //      
 //      String token = authResponse.getAccessToken();
@@ -48,31 +48,13 @@ public class ConnectVK {
       //--------------------------------------------------------------------
       // Go      
       
-       String token = "016e3918979dce82476645e7ebada2aeedbb86030b4f94247792ed25fec8adadd651f0578529125ab75a5";
-      //String token = "5afe700dce30ff5dc08e89f340da6476ed5a1515dcd2992285ddd4956ae5bd00fec92f8c44801e6179ab5";
-      int myId = 13298515;
-      
-      
-      //String token = "";
-      //int myId = 1286612;
-      
-        actor = new UserActor(myId, token);
-
-        
-        
-        //GetFieldsResponse gfr = vk.friends().get(actor, fields).execute();
-        //l=vk.friends().get(null).execute();
-       // List <UserXtrLists> list =  gfr.getItems();
-        
-    // for(int i = 0; i < gfr.getCount(); i++) 
-    // {
-    //     UserXtrLists user = list.get(i);
-    //     System.out.println("friends " + user.getFirstName() + " " + user.getLastName() );
-    // }
-        
-        //System.out.println("!!!!!!!!!!!!!!!!!!!!!!! " + vk.friends().get(actor,  ).execute());
+       String token = "";
+       int myId = 0;      
+    
+        actor = new UserActor(myId, token);   
   
     }
+
 public void sendmessage (String msg,int id) throws ApiException, ClientException{
  vk.messages().send(actor).message(msg).userId(id).randomId(random.nextInt()).execute();   
 }
@@ -84,10 +66,6 @@ public String [] createfriendmas() throws ApiException, ClientException{
 //        fields.add(UserField.SEX);
 //        fields.add(UserField.LAST_SEEN);
 //        fields.add(UserField.ABOUT);
-//        fields.add(UserField.BDATE);
-//        fields.add(UserField.CITY);
-//        fields.add(UserField.CONTACTS);
-//        fields.add(UserField.EDUCATION);
     
      GetFieldsResponse response = vk.friends().get(actor, fields).execute();
      List <UserXtrLists> UsersList =  response.getItems();    
