@@ -22,30 +22,37 @@ import javax.swing.event.ListSelectionListener;
 public class View extends JFrame{
     JPanel panel = new JPanel();
     JButton bsend = new JButton("Send");
-    JList<String> firendlist = new JList();
-    JTextArea messagearea = new JTextArea();
+    
+    JScrollPane scrollpane = new JScrollPane();    
+    JList firendlist = new JList();
+    
+    JTextArea messagearea = new JTextArea();    
     JTextArea entermessage = new JTextArea();
-    JScrollPane scrollpane = new JScrollPane(entermessage);
+    
     Actions actions;
     public ConnectVK vk;
     
     
     public View() throws ApiException, ClientException{
+        
      vk = new ConnectVK();
      actions = new Actions(this, vk);
-     createfrendlist();
+     
+    
      bsend.setLocation(320, 350);
      bsend.setSize(80, 25);
      panel.add(bsend);
-     bsend.addActionListener(actions);
-     
-     firendlist.setListData(createfrendlist());
-     firendlist.setLocation(10,25);
-     firendlist.setSize(120, 250);
-     firendlist.setVisible(true);
-     panel.add(firendlist);
-     firendlist.addListSelectionListener(actions);
+     bsend.addActionListener(actions);      
     
+     firendlist.setListData(createfrendlist());
+     firendlist.setVisibleRowCount(15);  
+     firendlist.addListSelectionListener(actions);   
+     
+     scrollpane.setLocation(10,25);
+     scrollpane.setSize(120, 250);
+     scrollpane.setViewportView(firendlist);
+     panel.add(scrollpane);
+      
      
      
      messagearea.setLocation(150, 25);
@@ -57,11 +64,8 @@ public class View extends JFrame{
      entermessage.setLocation(150, 285);
      entermessage.setSize(250, 50);
      entermessage.setLineWrap(true);
-     entermessage.setWrapStyleWord(true);
-     //Проблема со скролами
-//     scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//     add(scrollpane,BorderLayout.CENTER);
-  
+     entermessage.setWrapStyleWord(true);    
+ 
      panel.add(entermessage);
      
      add(panel);
@@ -73,17 +77,12 @@ public class View extends JFrame{
      setLayout(null);
      setSize(500, 500);
      setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+     setDefaultCloseOperation(EXIT_ON_CLOSE);
      
     }
 
-public String [] createfrendlist(){
-    vk.createfriendmas();
-    String [] myfriends = new String[vk.friendsmas.length];
-    for (int i = 0; i < vk.friendsmas.length; i++) {
-        myfriends[i]= vk.friendsmas[i].name + " " + vk.friendsmas[i].lastname;
-    }
-    return myfriends;
+public String [] createfrendlist() throws ApiException, ClientException{
+    return vk.createfriendmas();
 }
 }
 
@@ -117,6 +116,14 @@ class Actions implements ActionListener,ListSelectionListener{
          
      }
      }
+     else if (o==v.firendlist)
+     {
+         v.messagearea.setText("messages loads...");
+     }
+     else
+     {
+         System.out.println("action");
+     }
     }
 
     @Override
@@ -124,9 +131,9 @@ class Actions implements ActionListener,ListSelectionListener{
         //Object o = e.getSource();
        JList l = (JList)e.getSource();
        int tpmindex = l.getSelectedIndex();
-        System.out.println("Вsбран " + tpmindex);
-        idfriend = vk.friendsmas[tpmindex].id;
-        System.out.println("ID френда определён как " + idfriend);
+        System.out.println("Выбран " + tpmindex);
+        //idfriend = vk.friendsmas[tpmindex].id;
+       // System.out.println("ID френда определён как " + idfriend);
  
     }
 

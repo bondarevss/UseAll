@@ -7,8 +7,12 @@ import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.httpclient.HttpTransportClient;
 import com.vk.api.sdk.objects.UserAuthResponse;
 import com.vk.api.sdk.objects.apps.responses.GetResponse;
+import com.vk.api.sdk.objects.friends.UserXtrLists;
+import com.vk.api.sdk.objects.friends.responses.GetFieldsResponse;
 import com.vk.api.sdk.queries.users.UserField;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -43,25 +47,60 @@ public class ConnectVK {
       
       //--------------------------------------------------------------------
       // Go      
-      String token = "";
-      int myId = 1286612;
+      
+       String token = "016e3918979dce82476645e7ebada2aeedbb86030b4f94247792ed25fec8adadd651f0578529125ab75a5";
+      //String token = "5afe700dce30ff5dc08e89f340da6476ed5a1515dcd2992285ddd4956ae5bd00fec92f8c44801e6179ab5";
+      int myId = 13298515;
+      
+      
+      //String token = "";
+      //int myId = 1286612;
       
         actor = new UserActor(myId, token);
-        ArrayList<String> l = new ArrayList();
+
+        
+        
+        //GetFieldsResponse gfr = vk.friends().get(actor, fields).execute();
         //l=vk.friends().get(null).execute();
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!! " + vk.friends().get(actor).execute());
+       // List <UserXtrLists> list =  gfr.getItems();
+        
+    // for(int i = 0; i < gfr.getCount(); i++) 
+    // {
+    //     UserXtrLists user = list.get(i);
+    //     System.out.println("friends " + user.getFirstName() + " " + user.getLastName() );
+    // }
+        
+        //System.out.println("!!!!!!!!!!!!!!!!!!!!!!! " + vk.friends().get(actor,  ).execute());
   
     }
 public void sendmessage (String msg,int id) throws ApiException, ClientException{
  vk.messages().send(actor).message(msg).userId(id).randomId(random.nextInt()).execute();   
 }
 
-public void createfriendmas(){
-    friendsmas = new Friend[2];
-    Friend f1 = new Friend("Артём", "Смоляк", null, 13298515);
-    friendsmas[0]=f1;
-    Friend f2 = new Friend("Сергей", "Бондарев", null, 1286612);
-    friendsmas[1]=f2;
+public String [] createfriendmas() throws ApiException, ClientException{
+    
+        List <UserField> fields = new LinkedList<UserField>();
+        fields.add(UserField.PERSONAL);
+//        fields.add(UserField.SEX);
+//        fields.add(UserField.LAST_SEEN);
+//        fields.add(UserField.ABOUT);
+//        fields.add(UserField.BDATE);
+//        fields.add(UserField.CITY);
+//        fields.add(UserField.CONTACTS);
+//        fields.add(UserField.EDUCATION);
+    
+     GetFieldsResponse response = vk.friends().get(actor, fields).execute();
+     List <UserXtrLists> UsersList =  response.getItems();    
+     
+     String [] myfriends = new String[UsersList.size()];
+
+      for(int i = 0; i < UsersList.size(); i++) 
+     {
+         UserXtrLists user = UsersList.get(i);
+         myfriends[i] = user.getFirstName() + " " + user.getLastName();         
+     }     
+      
+      return myfriends;
 }
 
 public void pursinformation(){
