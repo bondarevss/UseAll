@@ -19,7 +19,8 @@ import javax.swing.event.ListSelectionListener;
 
 
 
-public class View extends JFrame{
+public class View extends JFrame implements InterfaceGUI{
+    Action action;
     JPanel panel = new JPanel();
     JButton bsend = new JButton("Send");
     
@@ -29,24 +30,20 @@ public class View extends JFrame{
     JTextArea messagearea = new JTextArea();    
     JTextArea entermessage = new JTextArea();
     
-    Actions actions;
     public ConnectVK vk;
     
     
     public View() throws ApiException, ClientException{
-        
-     vk = new ConnectVK();
-     actions = new Actions(this, vk);
-     
+       
     
      bsend.setLocation(320, 350);
      bsend.setSize(80, 25);
      panel.add(bsend);
-     bsend.addActionListener(actions);      
+     bsend.addActionListener(action);      
     
-     firendlist.setListData(createfrendlist());
+     //firendlist.setListData(createfrendlist());
      firendlist.setVisibleRowCount(15);  
-     firendlist.addListSelectionListener(actions);   
+     firendlist.addListSelectionListener(action);   
      
      scrollpane.setLocation(10,25);
      scrollpane.setSize(120, 250);
@@ -81,60 +78,24 @@ public class View extends JFrame{
      
     }
 
+    
+    public void setAction(Action action)
+    {
+         this.action = action;
+    }
 public String [] createfrendlist() throws ApiException, ClientException{
     return vk.createfriendmas();
 }
-}
 
-class Actions implements ActionListener,ListSelectionListener{
-    View v;
-    ConnectVK vk;
-    static int indexfriend = -99;
-    int idfriend=-99;
-    public Actions(View view, ConnectVK vk) {
-    v = view;
-    this.vk = vk;
-    
-    }
-
-    
     @Override
-    public void actionPerformed(ActionEvent e) {
-         Object o = e.getSource();
-     if (o==v.bsend){
-         if (idfriend!=-99)
-         {
-         String ms = v.entermessage.getText();
-             try {
-                 vk.sendmessage(ms,idfriend);
-             } catch (ApiException ex) {
-                 Logger.getLogger(Actions.class.getName()).log(Level.SEVERE, null, ex);
-             } catch (ClientException ex) {
-                 Logger.getLogger(Actions.class.getName()).log(Level.SEVERE, null, ex);
-             }
-         v.entermessage.setText(null);
-         
-     }
-     }
-     else if (o==v.firendlist)
-     {
-         v.messagearea.setText("messages loads...");
-     }
-     else
-     {
-         System.out.println("action");
-     }
+    public void sendListFriends(String[] friendlist) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        //Object o = e.getSource();
-       JList l = (JList)e.getSource();
-       int tpmindex = l.getSelectedIndex();
-        System.out.println("Выбран " + tpmindex);
-        //idfriend = vk.friendsmas[tpmindex].id;
-       // System.out.println("ID френда определён как " + idfriend);
- 
+    public void setMessageFriend(String[] friendmessage) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }
+
+

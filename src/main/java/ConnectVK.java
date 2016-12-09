@@ -14,9 +14,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
-public class ConnectVK {
+public class ConnectVK implements InterfaceModel{
     VkApiClient vk;
     UserActor actor;
     Random random ;
@@ -55,10 +57,6 @@ public class ConnectVK {
   
     }
 
-public void sendmessage (String msg,int id) throws ApiException, ClientException{
- vk.messages().send(actor).message(msg).userId(id).randomId(random.nextInt()).execute();   
-}
-
 public String [] createfriendmas() throws ApiException, ClientException{
     
         List <UserField> fields = new LinkedList<UserField>();
@@ -84,5 +82,25 @@ public String [] createfriendmas() throws ApiException, ClientException{
 public void pursinformation(){
 
 }
+
+    @Override
+    public String[] getMessage(int idFriend) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean sendMessage(String message, int idUser) {
+        try {  
+            vk.messages().send(actor).message(message).userId(idUser).randomId(random.nextInt()).execute();
+        } catch (Exception ex) {
+            return false;   
+        }
+        return true;
+    }
+
+    @Override
+    public String[] newMessage(int idFriend) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

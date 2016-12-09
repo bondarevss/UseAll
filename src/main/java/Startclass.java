@@ -14,6 +14,9 @@ import com.vk.api.sdk.exceptions.ClientException;
  */
 public class Startclass {
     public static void main(String[] args) throws ApiException, ClientException {
-        View v = new View();
+        //View v = new View();
+
+        Controller c = new Controller(new View(), new ConnectVK());
+
     }
 }
