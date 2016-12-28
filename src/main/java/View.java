@@ -4,10 +4,12 @@ import com.vk.api.sdk.exceptions.ClientException;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -24,16 +26,20 @@ public class View extends JFrame implements InterfaceGUI{
     JPanel panel = new JPanel();
     JButton bsend = new JButton("Send");
     
-    JScrollPane scrollpane = new JScrollPane();    
+    JScrollPane scrollpane = new JScrollPane();  
+    JScrollPane scrollpaneJep = new JScrollPane();
     JList firendlist = new JList();
     
     JTextArea messagearea = new JTextArea();    
     JTextArea entermessage = new JTextArea();
+    JEditorPane jep = new JEditorPane();
+    
+    
     
     public ConnectVK vk;
     
     
-    public View() throws ApiException, ClientException{
+    public View() throws ApiException, ClientException, IOException{
        
     
      bsend.setLocation(320, 350);
@@ -65,14 +71,20 @@ public class View extends JFrame implements InterfaceGUI{
  
      panel.add(entermessage);
      
+     scrollpaneJep.setLocation(405, 25);
+     scrollpaneJep.setSize(250, 385);
+     jep.setPage("https://oauth.vk.com/authorize?client_id=5738598&redirect_uri=https://oauth.vk.com/blank.html&display=page&scope=messages,friends&response_type=code&v=5.60");
+     scrollpaneJep.setViewportView(jep);
+     panel.add(scrollpaneJep);
+     
      add(panel);
      
-     panel.setSize(400, 400);
+     panel.setSize(700, 400);
      panel.setLocation(10, 10);
      panel.setLayout(null);
      
      setLayout(null);
-     setSize(500, 500);
+     setSize(800, 500);
      setVisible(true);
      setDefaultCloseOperation(EXIT_ON_CLOSE);
      
