@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 
 
 public class ConnectVK implements InterfaceModel{
@@ -26,11 +27,13 @@ public class ConnectVK implements InterfaceModel{
     int friendcnt;
     
     
+    
     public ConnectVK() throws ApiException, ClientException {
       
       random = new Random();    
       TransportClient transportClient = HttpTransportClient.getInstance();
       vk = new VkApiClient(transportClient); 
+      FirstWindow firstwindow = new FirstWindow();
       
       
       //it's just for first run only. Need to get code and token and myId ---------
@@ -50,14 +53,28 @@ public class ConnectVK implements InterfaceModel{
       //--------------------------------------------------------------------
       // Go      
       
-       String token = "";
-       int myId = 0;      
+      Preferences pref = Preferences.userRoot().node("UseAll"); 
+     // pref.put("token",engine.getLocation().substring(engine.getLocation().indexOf("token=")+6,engine.getLocation().indexOf("&expires")));
+      System.out.println(pref.get("token", "no token")); 
+      System.out.println(pref.get("user_id", "no user_id"));
+      
+      while (pref.get("token", "no token").equals("no token") || pref.get("user_id", "no user_id").equals("no user_id")){
+          firstwindow.getFirstWindow();
+          
+      }
+      String token = pref.get("token", "no token");
+      int myId = Integer.parseInt(pref.get("user_id", "no user_id"));
+      
+      
+      
+            
     
         actor = new UserActor(myId, token);   
   
     }
 
-public String [] createfriendmas() throws ApiException, ClientException{
+    @Override
+    public String [] getFriends() throws ApiException, ClientException{
     
         List <UserField> fields = new LinkedList<UserField>();
         fields.add(UserField.PERSONAL);

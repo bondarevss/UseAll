@@ -22,21 +22,20 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @author BS
  */
 
-public class TestJavaFx {
+public class FirstWindow {
 
     
-    public static void main(String[] args) {
         JFrame jf = new JFrame();
         JFXPanel jfx = new JFXPanel();
                
-               
+    public void getFirstWindow(){           
         Platform.runLater(new Runnable() {
         public void run() {
  
         WebView wv = new WebView();
         Scene scene = new Scene(wv);
         jfx.setScene(scene);
-        WebEngine engine = wv.getEngine();
+        final WebEngine engine = wv.getEngine();
         engine.load("https://oauth.vk.com/authorize?client_id=5738598&redirect_uri=https://oauth.vk.com/blank.html&display=page&scope=messages,friends,offline&response_type=token&v=5.60");
       
         
@@ -53,7 +52,9 @@ public class TestJavaFx {
                             System.out.println(engine.getLocation().substring(engine.getLocation().indexOf("token=")+6,engine.getLocation().indexOf("&expires")));
                             Preferences pref = Preferences.userRoot().node("UseAll"); 
                             pref.put("token",engine.getLocation().substring(engine.getLocation().indexOf("token=")+6,engine.getLocation().indexOf("&expires")));
-                                System.out.println(pref.get("token", "no token"));
+                            pref.put("user_id",engine.getLocation().substring(engine.getLocation().indexOf("user_id=")+8));
+                            
+                              ////  System.out.println(pref.get("token", "no token"));
                             }
                             }
                         }
@@ -71,7 +72,7 @@ public class TestJavaFx {
      jf.setVisible(true);
      jf.add(jfx);
      jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
     
+    }   
 }    
 

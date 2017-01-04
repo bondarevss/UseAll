@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -28,12 +29,17 @@ public class Action implements ActionListener,ListSelectionListener {
     public Action(InterfaceGUI gui, InterfaceController controller ) {
     this.gui = gui;    
     }
+    
+    public Action(InterfaceGUI gui) {
+    this.gui = gui;    
+    }
 
     
     @Override
     public void actionPerformed(ActionEvent e) {
          Object o = e.getSource();
-//     if (o==v.bsend){
+         
+//     if (o.getClass() == JButton){
 //         if (idfriend!=-99)
 //         {
 //         String ms = v.entermessage.getText();

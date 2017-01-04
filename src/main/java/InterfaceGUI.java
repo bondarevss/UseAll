@@ -12,4 +12,6 @@ public interface InterfaceGUI {
   public void sendListFriends(String [] friendlist);
   public void setMessageFriend (String [] friendmessage);
   public void setAction(Action action);
+  public void setController(InterfaceController controller);
+  public Action getAction();
 }

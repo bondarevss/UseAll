@@ -17,7 +17,15 @@ public class Startclass {
     public static void main(String[] args) throws ApiException, ClientException, IOException {
         //View v = new View();
 
-        Controller c = new Controller(new View(), new ConnectVK());
-
+        ConnectVK vk = new ConnectVK();
+        Controller c = new Controller(vk);
+        View v = new View(c);
+        c.setGUI(v);
+        // TODO
+        //1. Упростить старт класс
+        // 2. Изменить конструктор View
+        // 3. Доделать актион
+        // 4. Получить список сообщений 
+        
     }
 }
