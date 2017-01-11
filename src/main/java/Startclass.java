@@ -14,18 +14,22 @@ import java.io.IOException;
  * @author BS
  */
 public class Startclass {
-    public static void main(String[] args) throws ApiException, ClientException, IOException {
+    public static void main(String[] args) throws ApiException, ClientException, IOException, Exception {
         //View v = new View();
-
-        ConnectVK vk = new ConnectVK();
-        Controller c = new Controller(vk);
-        View v = new View(c);
-        c.setGUI(v);
+        
+        Controller c = new Controller(new View(), new ConnectVK());
+        
+       // c.setGUI(v);
         // TODO
-        //1. Упростить старт класс
-        // 2. Изменить конструктор View
-        // 3. Доделать актион
+        //1. Упростить старт класс +
+        // 2. Изменить конструктор View + 
+        // 3. Доделать актион +
         // 4. Получить список сообщений 
+        // 5. Сделать сворачивание в трей 
+        // 6. Уведомление из трея
+        // 7. Собрать установщик 
+        
+        // 8. доработать получение токена
         
     }
 }

@@ -15,7 +15,7 @@ import com.vk.api.sdk.exceptions.ClientException;
 public interface InterfaceController {
     public boolean sendMessage (String message,int idUser);
     public String [] getMessage(); 
-    public String [] getFriends() throws ApiException, ClientException;
+    public String [] getFriends(Friend[] friends) throws ApiException, ClientException;
     
     
 }

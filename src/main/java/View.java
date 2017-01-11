@@ -20,7 +20,7 @@ import javax.swing.event.ListSelectionListener;
 
 public class View extends JFrame implements InterfaceGUI {
 
-    Action action = new Action(this);
+    Friend [] friends;
     InterfaceController controller;
     JPanel panel = new JPanel();
     JButton bsend = new JButton("Send");
@@ -34,16 +34,16 @@ public class View extends JFrame implements InterfaceGUI {
    // JEditorPane jep = new JEditorPane();
 
 
-    public View(InterfaceController controller) throws ApiException, ClientException, IOException {
-        this.controller = controller;
+    public View() throws ApiException, ClientException, IOException {
+ 
         bsend.setLocation(320, 350);
         bsend.setSize(80, 25);
         panel.add(bsend);
-        bsend.addActionListener(action);
+       // bsend.addActionListener(action);
         
-        firendlist.setListData(createfrendlist());
+        //firendlist.setListData(createfrendlist());
         firendlist.setVisibleRowCount(15);
-        firendlist.addListSelectionListener(action);
+        //firendlist.addListSelectionListener(action);
 
         scrollpane.setLocation(10, 25);
         scrollpane.setSize(120, 250);
@@ -80,23 +80,20 @@ public class View extends JFrame implements InterfaceGUI {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
-
-    public void setAction(Action action) {
-        this.action = action;
-    }
-    
-    public Action getAction() {
-        return this.action;
-    }
+     
     
     @Override
-    public void setController(InterfaceController controller) {
+    public void setController(InterfaceController controller) throws Exception, ApiException 
+    {
         this.controller = controller;
+         firendlist.setListData(createfrendlist());
+         bsend.addActionListener((ActionListener)controller);    
+         firendlist.addListSelectionListener((ListSelectionListener)controller);
     }
 
     public String[] createfrendlist() throws ApiException, ClientException {
       
-        return controller.getFriends();
+        return controller.getFriends(friends);
     }
 
     @Override

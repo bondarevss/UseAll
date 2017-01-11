@@ -16,5 +16,5 @@ public interface InterfaceModel {
    public String[] getMessage(int idFriend); 
    public boolean sendMessage(String message,int idUser);
    public String[] newMessage (int idFriend);
-   public String [] getFriends() throws ApiException, ClientException;
+   public String [] getFriends(Friend [] friends) throws ApiException, ClientException;
 }

@@ -67,14 +67,14 @@ public class ConnectVK implements InterfaceModel{
       
       
       
+          
             
-    
         actor = new UserActor(myId, token);   
   
     }
 
     @Override
-    public String [] getFriends() throws ApiException, ClientException{
+    public String [] getFriends(Friend [] friends) throws ApiException, ClientException{
     
         List <UserField> fields = new LinkedList<UserField>();
         fields.add(UserField.PERSONAL);
@@ -86,11 +86,13 @@ public class ConnectVK implements InterfaceModel{
      List <UserXtrLists> UsersList =  response.getItems();    
      
      String [] myfriends = new String[UsersList.size()];
+      friends = new Friend[UsersList.size()];
 
       for(int i = 0; i < UsersList.size(); i++) 
      {
          UserXtrLists user = UsersList.get(i);
-         myfriends[i] = user.getFirstName() + " " + user.getLastName();         
+         myfriends[i] = user.getFirstName() + " " + user.getLastName(); 
+         friends[i] = new Friend (user.getFirstName(),user.getLastName(), user.getNickname(), user.getId());
      }     
       
       return myfriends;
