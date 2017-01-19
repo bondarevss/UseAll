@@ -3,6 +3,8 @@ import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
@@ -81,11 +83,26 @@ public class Controller implements InterfaceController, ActionListener, ListSele
     @Override
     public void valueChanged(ListSelectionEvent e) {
         //Object o = e.getSource();
+       String oneStrMessage= "";
        JList l = (JList)e.getSource();
        int tpmindex = l.getSelectedIndex();
         System.out.println("Выбран " + tpmindex);
+        try {
+            
+            String [] temp = model.getMessage(2);
+            for (int i = 0; i < temp.length; i++) {
+               oneStrMessage+=temp[i] + "\n";
+            }
+        } catch (ApiException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClientException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        ((View) gui).messagearea.setText("messages loads...");
+       
+            
+      
+        ((View) gui).messagearea.setText(oneStrMessage);
         //idfriend = vk.friendsmas[tpmindex].id;
        // System.out.println("ID френда определён как " + idfriend);
  

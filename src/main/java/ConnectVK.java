@@ -9,6 +9,9 @@ import com.vk.api.sdk.objects.UserAuthResponse;
 import com.vk.api.sdk.objects.apps.responses.GetResponse;
 import com.vk.api.sdk.objects.friends.UserXtrLists;
 import com.vk.api.sdk.objects.friends.responses.GetFieldsResponse;
+import com.vk.api.sdk.objects.messages.Dialog;
+import com.vk.api.sdk.objects.messages.Message;
+import com.vk.api.sdk.objects.messages.responses.GetDialogsResponse;
 import com.vk.api.sdk.queries.users.UserField;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -17,6 +20,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
+
 
 
 public class ConnectVK implements InterfaceModel{
@@ -103,8 +107,31 @@ public void pursinformation(){
 }
 
     @Override
-    public String[] getMessage(int idFriend) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String[] getMessage (int idFriend) throws ApiException, ClientException{
+       
+            com.vk.api.sdk.objects.messages.responses.GetResponse getresp; 
+                    getresp = vk.messages().get(actor).count(8).execute();
+                   GetDialogsResponse gd =  vk.messages().getDialogs(actor).count(15).execute();
+         List <Dialog> dialogs = gd.getItems();
+         List <Message> messages = getresp.getItems();
+            String[] dialogstr = new String[dialogs.size()];
+            int i=0;
+            for (Dialog dialog : dialogs) {
+               dialogstr [i] = dialog.getMessage().getBody() + "ID!: " + dialog.getMessage().getChatId();
+               i++;
+            }
+//        List <Message> messages = getresp.getItems();
+//            String[] messagestr = new String[messages.size()];
+//            int i=0;
+//            for (Message message : messages) {
+//               messagestr [i] = message.getBody();
+//               i++;
+//            }
+        
+     
+        
+         
+        return  dialogstr; 
     }
 
     @Override

@@ -27,6 +27,7 @@ public class View extends JFrame implements InterfaceGUI {
 
     JScrollPane scrollpane = new JScrollPane();
     JScrollPane scrollpaneJep = new JScrollPane();
+    JScrollPane scrollpanemes = new JScrollPane();
     JList firendlist = new JList();
 
     JTextArea messagearea = new JTextArea();
@@ -50,11 +51,12 @@ public class View extends JFrame implements InterfaceGUI {
         scrollpane.setViewportView(firendlist);
         panel.add(scrollpane);
 
-        messagearea.setLocation(150, 25);
-        messagearea.setSize(250, 250);
-        messagearea.setLineWrap(true);
-        messagearea.setWrapStyleWord(true);
-        panel.add(messagearea);
+        scrollpanemes.setLocation(150, 25);
+        scrollpanemes.setSize(250, 250);
+     //   scrollpanemes.setLineWrap(true);
+     //   scrollpanemes.setWrapStyleWord(true);
+        scrollpanemes.setViewportView(messagearea);
+        panel.add(scrollpanemes);
 
         entermessage.setLocation(150, 285);
         entermessage.setSize(250, 50);

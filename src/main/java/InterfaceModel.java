@@ -13,7 +13,7 @@ import com.vk.api.sdk.exceptions.ClientException;
  * @author Artyom
  */
 public interface InterfaceModel {
-   public String[] getMessage(int idFriend); 
+   public String[] getMessage(int idFriend) throws ApiException, ClientException; 
    public boolean sendMessage(String message,int idUser);
    public String[] newMessage (int idFriend);
    public String [] getFriends(Friend [] friends) throws ApiException, ClientException;
